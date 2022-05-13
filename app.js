@@ -36,12 +36,38 @@ app.get("/gallary", (req,res)=>{
     })
 })
 
+app.get("/gallaryFirst", (req,res)=>{
+    db.collection("gallary_first").find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+
+app.get("/places/:id", (req,res)=>{
+    let countryId = Number(req.params.id);
+    db.collection("places").find({country_id : countryId}).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+
+    })
+
+})
+
+app.get("/gallary/:id", (req,res)=>{
+    let countryId = Number(req.params.id);
+    db.collection("gallary").find({country_id : countryId}).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+
+
 mongoClient.connect(mongoUrl, (err,connection)=>{
     if(err) console.log("Error while connectiong");
     db = connection.db("travel");
 
 app.listen(port, ()=>{
-    console.log(`port is started at ${port}`);
-})
+    console.log(`port is start at ${port}`);
+    })
 
 })
